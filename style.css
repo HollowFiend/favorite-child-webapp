@@ -1,0 +1,104 @@
+:root{
+  --bg:#a2efea;
+  --card:#fffbea;
+  --ink:#111;
+  --yes:#10b981; /* green */
+  --no:#ef4444;  /* red */
+}
+
+*{ box-sizing: border-box }
+html,body{ height:100% }
+
+body{
+  margin:0;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(60% 60% at 50% 40%, #b8fff8, var(--bg));
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color:var(--ink);
+}
+
+.card{
+  width:min(520px, 92vw);
+  background:var(--card);
+  border:1px solid #f1eec7;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.6);
+  padding:28px 20px 72px;
+  position:relative;
+  overflow:hidden; /* keeps runaway button inside the card */
+  text-align:center;
+}
+
+h1{ margin:0 0 8px; font-size:clamp(20px, 3.6vw, 28px) }
+p{ margin:0; color:#444 }
+
+.buttonWrap{
+  position:relative;
+  height:64px;            /* space for the absolute 'No' button */
+  margin-top:22px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  overflow:hidden;         /* keep No within the wrap area */
+}
+
+button{
+  appearance:none;
+  border:none;
+  padding:12px 18px;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:600;
+  color:white;
+  background:#111;
+  cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease, opacity .2s ease;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+  user-select:none;
+}
+
+button:hover{ transform: translateY(-1px) }
+
+#yesBtn{ background:var(--yes) }
+#noBtn{ background:var(--no); position:absolute; } /* allows movement */
+
+#result{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  backdrop-filter: blur(2px);
+  background:rgba(255,255,255,.6);
+  opacity:0; pointer-events:none; transition:opacity .22s ease;
+}
+#result.show{ opacity:1; pointer-events:auto }
+
+.boom{
+  font-size:clamp(26px, 6vw, 42px);
+  font-weight:900;
+  color:#0f172a;
+  text-shadow:0 2px 0 #fff, 0 14px 30px rgba(0,0,0,.15);
+  transform:scale(.9);
+  animation:pop .35s ease forwards;
+  text-align:center;
+  line-height:1.1;
+}
+@keyframes pop{ to{ transform:scale(1) } }
+
+.againBtn{ margin-top:16px; background:#111 }
+
+/* Confetti */
+.confetti{
+  position:absolute; top:-12px; width:8px; height:12px; opacity:.95; border-radius:2px;
+  animation:fall linear forwards; will-change: transform, opacity;
+}
+@keyframes fall{
+  90%{ opacity:1 }
+  100%{ transform: translateY(115vh) rotate(720deg); opacity:0 }
+}
+
+/* Tiny footer note */
+.note{
+  position:absolute; bottom:10px; left:0; right:0;
+  color:#6b7280; font-size:12px;
+}
